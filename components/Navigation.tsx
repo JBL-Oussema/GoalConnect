@@ -6,6 +6,7 @@ import { useSession, signOut } from 'next-auth/react'
 
 import Image from 'next/image'
 
+// Composant pour la barre de navigation de l'application
 export default function Navigation() {
   const { data: session, status } = useSession()
 
@@ -26,7 +27,7 @@ export default function Navigation() {
               />
             </Link>
             
-            {/* Nav Links */}
+            {/* Liens de navigation : Accueil, Réserver, Mon Espace */}
             <div className="hidden sm:ml-10 sm:flex sm:space-x-8">
               <Link href="/" className="border-transparent text-gray-500 hover:border-[#0062AF] hover:text-[#0062AF] inline-flex items-center px-1 border-b-2 font-medium">
                 Accueil
@@ -42,6 +43,7 @@ export default function Navigation() {
             </div>
           </div>
 
+          {/* Section utilisateur : affichage profil ou bouton de connexion */}
           <div className="flex items-center">
             {status === 'loading' ? (
               <div className="animate-pulse bg-gray-200 rounded-full h-10 w-24"></div>

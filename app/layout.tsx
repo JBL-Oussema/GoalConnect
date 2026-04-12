@@ -15,6 +15,7 @@ export const metadata: Metadata = {
   },
 }
 
+// Composant principal de la mise en page
 export default function RootLayout({
   children,
 }: {
@@ -25,6 +26,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <Providers>
           <Navigation />
+          {/* Contenu principal de l'application */}
           <main className="bg-slate-50 min-h-[calc(100vh-80px)]">
             {children}
           </main>

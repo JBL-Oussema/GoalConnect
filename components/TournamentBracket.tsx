@@ -1,4 +1,5 @@
 'use client'
+// Composant affichant l'arbre de tournoi (bracket) et permettant de saisir les scores
 
 import React, { useState } from 'react'
 import { updateMatchScore } from '@/app/actions/tournament'
@@ -12,7 +13,7 @@ export default function TournamentBracket({
 }) {
   const [loading, setLoading] = useState(false)
 
-  // Group matches by round
+  // Grouper les matchs par tour (ou par round)
   const maxRound = Math.max(...matches.map(m => m.round))
   const rounds = []
   for (let r = 1; r <= maxRound; r++) {
@@ -79,7 +80,7 @@ export default function TournamentBracket({
                   </div>
 
                   <form onSubmit={(e) => handleScoreSubmit(e, match.id)} className="space-y-4">
-                    {/* Team 1 Row */}
+                    {/* Ligne de l'Équipe 1 */}
                     <div className="flex items-center justify-between">
                       <span className={`font-medium ${match.winner_id === match.team1_id ? 'font-black text-[#0062AF]' : 'text-slate-700'}`}>
                         {match.team1?.team_name || <span className="italic text-slate-400">À déterminer</span>}
@@ -94,7 +95,7 @@ export default function TournamentBracket({
                       )}
                     </div>
 
-                    {/* Team 2 Row */}
+                    {/* Ligne de l'Équipe 2 */}
                     <div className="flex items-center justify-between">
                       <span className={`font-medium ${match.winner_id === match.team2_id ? 'font-black text-[#0062AF]' : 'text-slate-700'}`}>
                         {match.team2?.team_name || <span className="italic text-slate-400">À déterminer</span>}
@@ -109,7 +110,7 @@ export default function TournamentBracket({
                       )}
                     </div>
 
-                    {/* Penalty inputs if active and needed (handled dynamically via JS ideally, but we can safely show them if canPlay and let users fill them if draw) */}
+                    {/* Champs pour les penaltys au but si activés  */}
                     {canPlay && (
                       <div className="pt-3 border-t border-slate-100">
                         <p className="text-xs text-slate-500 mb-2">Tirs au but (uniquement si égalité) :</p>

@@ -1,4 +1,5 @@
 'use client'
+// Composant gérant le formulaire de réservation (choix du type: simple ou tournoi, dates, etc.)
 
 import React, { useState } from 'react'
 import { createBooking } from '@/app/actions/booking'
@@ -20,11 +21,11 @@ export default function ReservationForm({ pitch }: ReservationFormProps) {
   const [teamCount, setTeamCount] = useState<number>(8)
   const [loading, setLoading] = useState(false)
 
-  // Extract base price cleanly
+  // Extraire proprement le prix de base
   const basePriceMatch = pitch.prix.match(/\d+(\.\d+)?/)
   const basePrice = basePriceMatch ? parseFloat(basePriceMatch[0]) : 100
 
-  // Calculate dynamic price
+  // Calculer le prix dynamique
   const isTournament = bookingType === 'tournament'
   const tournamentDays = teamCount - 1
   const tournoiPrice = isTournament ? (basePrice * tournamentDays) * 0.70 : basePrice

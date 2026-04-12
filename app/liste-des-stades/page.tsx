@@ -1,8 +1,8 @@
+// Page affichant la liste complète de tous les stades disponibles à la réservation
 import { PrismaClient } from '@prisma/client'
 import Link from 'next/link'
 import Image from 'next/image'
 
-// Force dynamic rendering if pitches update often
 export const dynamic = 'force-dynamic'
 
 const prisma = new PrismaClient()

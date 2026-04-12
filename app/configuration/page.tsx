@@ -1,3 +1,4 @@
+// Page de gestion et de configuration des tournois (définition des équipes, affichage du bracket)
 import { PrismaClient } from '@prisma/client'
 import Link from 'next/link'
 import TournamentTeamsForm from '@/components/TournamentTeamsForm'
@@ -18,7 +19,7 @@ export default async function ConfigurationDashboard({ searchParams }: { searchP
   const userId = Number((session.user as any).id)
   if (!userId) redirect('/login')
 
-  // Find the exact tournament requested, or fallback to latest setup
+  // Trouver le tournoi demandé, ou se rabattre sur la dernière configuration
   const tournamentIdFromUrl = searchParams.tournament_id ? Number(searchParams.tournament_id) : null
 
   let tournamentQuery: any = { organizer_id: userId }
@@ -45,7 +46,6 @@ export default async function ConfigurationDashboard({ searchParams }: { searchP
     }
   })
 
-  // Determine view logic
   const isSetup = tournament?.status === 'setup'
   const isBracket = tournament?.status === 'active' || tournament?.status === 'completed'
 

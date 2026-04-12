@@ -1,4 +1,5 @@
 'use client'
+// Interface utilisateur pour se connecter à son espace personnel
 
 import React, { useState, useEffect, Suspense } from 'react'
 import { signIn } from 'next-auth/react'

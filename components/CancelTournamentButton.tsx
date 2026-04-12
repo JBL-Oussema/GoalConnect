@@ -1,4 +1,5 @@
 'use client'
+// Composant bouton permettant d'annuler un tournoi de bout en bout
 
 import { useState } from 'react'
 import { cancelTournament } from '@/app/actions/tournament'

@@ -1,4 +1,5 @@
 'use client'
+// Interface utilisateur pour s'inscrire et créer un compte
 
 import React, { useState } from 'react'
 import { useRouter } from 'next/navigation'

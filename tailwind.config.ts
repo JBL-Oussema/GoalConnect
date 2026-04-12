@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+// Configuration globale de Tailwind CSS (couleurs personnalisées, chemins des fichiers à analyser pour le CSS, etc.)
 
 const config: Config = {
   content: [

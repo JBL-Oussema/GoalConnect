@@ -1,3 +1,4 @@
+// Point d'entrée de l'API NextAuth pour gérer les requêtes de connexion et de session
 import NextAuth from "next-auth"
 import { authOptions } from "@/lib/auth"
 

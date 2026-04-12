@@ -1,3 +1,4 @@
+// Page dynamique affichant les détails d'un terrain spécifique et son formulaire de réservation
 import { PrismaClient } from '@prisma/client'
 import { notFound, redirect } from 'next/navigation'
 import ReservationForm from '@/components/ReservationForm'
@@ -21,7 +22,6 @@ export default async function TerrainPage({ params }: { params: { id: string } }
     notFound()
   }
 
-  // Next.js serializes props, so we need to ensure they match the interface roughly
   return <ReservationForm pitch={pitch as any} />
 }
 

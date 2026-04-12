@@ -1,3 +1,4 @@
+// Point d'accès API traitant la requête d'inscription (création d'un nouveau compte)
 import { NextResponse } from 'next/server'
 import { PrismaClient } from '@prisma/client'
 import bcrypt from 'bcryptjs'
@@ -12,7 +13,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ message: 'Le nom d\'utilisateur et le mot de passe sont requis.' }, { status: 400 })
     }
 
-    // Check if user already exists
+  
     const existingUser = await prisma.user.findUnique({
       where: { username }
     })
@@ -21,10 +22,10 @@ export async function POST(req: Request) {
       return NextResponse.json({ message: 'Ce nom d\'utilisateur est déjà pris.' }, { status: 409 })
     }
 
-    // Hash the password
+    
     const hashedPassword = await bcrypt.hash(password, 10)
 
-    // Create the user
+    
     await prisma.user.create({
       data: {
         username,

@@ -1,10 +1,11 @@
 import Link from 'next/link'
 import Image from 'next/image'
 
+// Page d'accueil principale de l'application
 export default function Home() {
   return (
     <div className="flex flex-col min-h-screen">
-      {/* Hero Section */}
+      {/* Section Hero : Bannière d'accueil principale */}
       <section className="relative w-full h-[600px] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 bg-black/60 z-10" />
         <Image
@@ -26,6 +27,7 @@ export default function Home() {
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-8">
+            {/* Lien vers la page de réservation des stades */}
             <Link
               href="/liste-des-stades"
               className="bg-[#0062AF] hover:bg-blue-600 text-white px-8 py-4 rounded-full text-lg font-bold uppercase tracking-wider transition-all transform hover:scale-105 shadow-xl hover:shadow-blue-500/50"
@@ -42,7 +44,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Features Section */}
+      {/* Section Fonctionnalités : Pourquoi choisir notre plateforme */}
       <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">

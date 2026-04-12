@@ -1,3 +1,4 @@
+// Tableau de bord de l'utilisateur affichant ses réservations (simples ou tournois)
 import React from 'react'
 import { PrismaClient } from '@prisma/client'
 import { getServerSession } from "next-auth"

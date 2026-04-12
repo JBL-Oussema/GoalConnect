@@ -1,4 +1,5 @@
 'use client'
+// Composant bouton permettant d'annuler une réservation simple
 
 import React, { useState } from 'react'
 import { cancelReservation } from '@/app/actions/booking'

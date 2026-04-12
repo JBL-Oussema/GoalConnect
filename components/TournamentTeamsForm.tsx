@@ -1,4 +1,5 @@
 'use client'
+// Composant gérant le formulaire pour définir les équipes participantes à un tournoi
 
 import { useState } from 'react'
 import { finalizeTournament } from '@/app/actions/booking'
@@ -6,7 +7,7 @@ import { finalizeTournament } from '@/app/actions/booking'
 export default function TournamentTeamsForm({ tournamentId, teamCount }: { tournamentId: number, teamCount: number }) {
   const [loading, setLoading] = useState(false)
 
-  // Pre-fill an array with empty strings based on teamCount
+  // Pré-remplir un tableau de chaînes vides selon 'teamCount'
   const [teams, setTeams] = useState<string[]>(Array(teamCount).fill(''))
 
   const handleNameChange = (index: number, val: string) => {
