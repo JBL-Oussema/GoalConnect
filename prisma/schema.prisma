@@ -1,0 +1,128 @@
+// schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+// NextAuth standard User model adapted for Integer IDs to match your SQL schema
+model User {
+  id            Int            @id @default(autoincrement())
+  username      String         @unique @db.VarChar(50)
+  password      String         @db.VarChar(255)
+  
+  // Relations
+  reservations  Reservation[]
+  tournaments   GcTournament[]
+
+  @@map("users")
+}
+
+
+
+model Stade {
+  id                 Int            @id @default(autoincrement())
+  nom                String?        @db.VarChar(100)
+  prix               String?        @db.VarChar(10)
+  localisation       String?        @db.VarChar(100)
+  duree              String?        @db.VarChar(20)
+  img                String?        @db.VarChar(255)
+  booking_service_id Int            @default(1)
+  
+  // Relations
+  reservations       Reservation[]
+  tournaments        GcTournament[]
+
+  @@map("stades")
+}
+
+model Reservation {
+  id           Int       @id @default(autoincrement())
+  pitch_id     Int
+  user_id      Int
+  booking_type String    @db.VarChar(20)
+  start_date   DateTime  @db.Date
+  start_time   DateTime  @db.Time
+  total_days   Int?      @default(1)
+  total_price  Decimal   @db.Decimal(10, 2)
+  status       String?   @default("pending") @db.VarChar(20)
+  created_at   DateTime? @default(now()) @db.Timestamp(0)
+
+  // Relations
+  pitch Stade @relation(fields: [pitch_id], references: [id], onDelete: Cascade)
+  user  User  @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@index([pitch_id])
+  @@index([user_id])
+  @@map("reservations")
+}
+
+model GcTournament {
+  id              Int       @id @default(autoincrement())
+  organizer_id    Int       // Changed to Int to match User model ID type (was bigint unsigned)
+  pitch_id        Int
+  tournament_name String    @db.VarChar(100)
+  team_count      Int
+  booking_date    DateTime  @db.Date
+  booking_time    DateTime  @db.Time
+  total_price     Float     @db.Float
+  status          String?   @default("setup") @db.VarChar(20)
+  created_at      DateTime? @default(now()) @db.Timestamp(0)
+
+  // Relations
+  pitch     Stade @relation(fields: [pitch_id], references: [id], onDelete: Cascade)
+  organizer User  @relation(fields: [organizer_id], references: [id], onDelete: Cascade)
+  teams     GcTournamentTeam[]
+  matches   GcTournamentMatch[]
+  
+  @@index([pitch_id])
+  @@index([organizer_id])
+  @@map("gc_tournaments")
+}
+
+model GcTournamentTeam {
+  id            Int          @id @default(autoincrement())
+  tournament_id Int
+  team_name     String       @db.VarChar(100)
+
+  tournament    GcTournament @relation(fields: [tournament_id], references: [id], onDelete: Cascade)
+  matchesAsTeam1 GcTournamentMatch[] @relation("Team1Matches")
+  matchesAsTeam2 GcTournamentMatch[] @relation("Team2Matches")
+  matchesAsWinner GcTournamentMatch[] @relation("WinnerMatches")
+
+  @@index([tournament_id])
+  @@map("gc_tournament_teams")
+}
+
+model GcTournamentMatch {
+  id              Int               @id @default(autoincrement())
+  tournament_id   Int
+  round           Int
+  match_order     Int
+  team1_id        Int?              
+  team2_id        Int?
+  team1_score     Int?
+  team2_score     Int?
+  team1_penalties Int?
+  team2_penalties Int?
+  winner_id       Int?
+  next_match_id   Int?              
+  
+  tournament      GcTournament      @relation(fields: [tournament_id], references: [id], onDelete: Cascade)
+  team1           GcTournamentTeam? @relation("Team1Matches", fields: [team1_id], references: [id])
+  team2           GcTournamentTeam? @relation("Team2Matches", fields: [team2_id], references: [id])
+  winner          GcTournamentTeam? @relation("WinnerMatches", fields: [winner_id], references: [id])
+  next_match      GcTournamentMatch? @relation("NextMatch", fields: [next_match_id], references: [id])
+  previous_matches GcTournamentMatch[] @relation("NextMatch")
+
+  @@index([tournament_id])
+  @@index([team1_id])
+  @@index([team2_id])
+  @@index([next_match_id])
+  @@map("gc_tournament_matches")
+}
+
