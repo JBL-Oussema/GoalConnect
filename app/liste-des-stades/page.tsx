@@ -31,8 +31,9 @@ export default async function PitchesList() {
                 alt={pitch.nom || 'Pitch Image'}
                 fill
                 className="object-cover transition-transform duration-500 group-hover:scale-110"
-                loading="lazy"
+                loading="eager"
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                unoptimized
               />
             </div>
             
